@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
+using Kattalist.Domain.Validators;
+using FluentValidation.Results;
 
 namespace Kattalist.API.Controllers
 {
@@ -25,9 +28,16 @@ namespace Kattalist.API.Controllers
         [ProducesResponseType(201)]
         public ActionResult<ListaCompras> Create([FromBody] ListaComprasDTO nomeLista)
         {
-            if(nomeLista.Name.Length < 1 || nomeLista.Name.Contains(' ') || nomeLista == null)
+            ListaComprasValidator validator = new ListaComprasValidator();
+            ValidationResult result = validator.Validate(nomeLista);
+            if (!result.IsValid)
             {
-                return BadRequest("Name must be a string, with length bigger than 1 and no space character...");
+                string errorMessage = String.Empty;
+                foreach(var failure in result.Errors)
+                {
+                    errorMessage += failure.ErrorMessage + "\n";
+                }
+                return BadRequest(errorMessage);
             }
 
             ListaCompras _nomeLista = new ListaCompras

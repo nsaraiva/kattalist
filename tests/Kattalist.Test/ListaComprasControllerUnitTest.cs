@@ -4,7 +4,6 @@ using Kattalist.API.Controllers;
 using Kattalist.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using Xunit;
@@ -74,8 +73,6 @@ namespace Kattalist.Test
                 cfg.AddProfile(new AutoMapperProfile());
             });
             var mapper = mockMapper.CreateMapper();
-
-            //ListaComprasDTO nomeLista = new ListaComprasDTO { Name = value };
 
             //Arrange
             var controller = new ListaComprasController(mapper: mapper);
