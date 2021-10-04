@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kattalist.Domain.Validators
+namespace Kattalist.Service.Validators
 {
     public class ListaComprasValidator : AbstractValidator<ListaCompras>
     {

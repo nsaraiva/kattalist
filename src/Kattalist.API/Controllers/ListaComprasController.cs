@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
 using Kattalist.Domain.Entities;
-using Kattalist.Domain.Validators;
+using Kattalist.Service.Validators;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
