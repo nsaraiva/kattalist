@@ -1,16 +1,20 @@
 ﻿using AutoMapper;
 using Kattalist.Domain.Entities;
 
-namespace automapper_sample
+namespace Kattalist.Domain.Entities
 {
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ListaCompras, ListaComprasDTO>());
-            //CreateMap<ListaComprasDTO, ListaCompras>();
-            //.ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            //.ReverseMap();
+            CreateMap<ListaCompras, ListaComprasDTO>()
+                .ReverseMap();
+                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Name));
+            //    .ForMember(dest => dest.DataCriacao, opt => opt.Ignore())
+            //    .ReverseMap();
+            //var config = new MapperConfiguration(cfg =>
+            //        cfg.CreateMap<ListaCompras, ListaComprasDTO>()
+            //    );
         }
     }
 }

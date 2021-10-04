@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kattalist.Domain.Entities
 {
-    public class ListaComprasDTO
+    public class ListaComprasDTO : BaseEntity
     {
         public string Name { get; set; }
     }

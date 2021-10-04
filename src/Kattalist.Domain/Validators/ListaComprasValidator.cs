@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kattalist.Domain.Validators
 {
-    public class ListaComprasValidator : AbstractValidator<ListaComprasDTO>
+    public class ListaComprasValidator : AbstractValidator<ListaCompras>
     {
         public ListaComprasValidator()
         {
@@ -18,7 +18,7 @@ namespace Kattalist.Domain.Validators
             RuleFor(ListaCompras => ListaCompras.Name).Must(n => !n.Any(x => Char.IsWhiteSpace(x)));
         }
 
-        protected override bool PreValidate(ValidationContext<ListaComprasDTO> instance, ValidationResult result)
+        protected override bool PreValidate(ValidationContext<ListaCompras> instance, ValidationResult result)
         {
             if(instance.InstanceToValidate == null)
             {
