@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kattalist.Test", "tests\Kat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kattalist.Service", "src\Kattalist.Service\Kattalist.Service.csproj", "{C78D11C2-0AEC-4DF9-9E73-60B4E96DEFB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kattalist.Infra.Data", "src\Kattalist.Infra.Data\Kattalist.Infra.Data.csproj", "{E6848078-EDBE-40B9-BDE3-C78110B05936}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{C78D11C2-0AEC-4DF9-9E73-60B4E96DEFB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C78D11C2-0AEC-4DF9-9E73-60B4E96DEFB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C78D11C2-0AEC-4DF9-9E73-60B4E96DEFB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6848078-EDBE-40B9-BDE3-C78110B05936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6848078-EDBE-40B9-BDE3-C78110B05936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6848078-EDBE-40B9-BDE3-C78110B05936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6848078-EDBE-40B9-BDE3-C78110B05936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{E99CE79E-5D79-4B7A-8363-A5221C1E45F7} = {682F57DB-2096-4ABB-B58B-555ABA31CF16}
 		{825EA6AB-506D-4695-8CB6-BA1565BB4F0D} = {C9C42B24-0C21-4028-A829-D14FF48B91EF}
 		{C78D11C2-0AEC-4DF9-9E73-60B4E96DEFB5} = {6852E3FA-D1D4-4D8B-A7AB-5AE6E2B5CE68}
+		{E6848078-EDBE-40B9-BDE3-C78110B05936} = {00C48ACF-2DB7-4418-AB91-69B2959EB1A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E77DD6D-8858-4378-A088-8CBBA00E7A03}

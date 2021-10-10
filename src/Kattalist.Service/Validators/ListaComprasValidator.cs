@@ -22,7 +22,7 @@ namespace Kattalist.Service.Validators
         {
             if(instance.InstanceToValidate == null)
             {
-                result.Errors.Add(new ValidationFailure("ListaCompras", "LIstaCompras cannot be null"));
+                result.Errors.Add(new ValidationFailure("ListaCompras", "ListaCompras cannot be null"));
                 return false;
             }
             return base.PreValidate(instance, result);
