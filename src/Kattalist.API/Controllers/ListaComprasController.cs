@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
+using Kattalist.Domain.DTOs;
 using Kattalist.Domain.Entities;
 using Kattalist.Service.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace Kattalist.API.Controllers
         // POST: ListaComprasController/Create
         [HttpPost]
         [ProducesResponseType(201)]
-        public ActionResult<ListaComprasDTO> Create([FromBody] ListaCompras nomeLista)
+        public ActionResult<ListaCompras> Create([FromBody] ListaComprasDTO nomeLista)
         {
             ListaComprasValidator validator = new ListaComprasValidator();
             ValidationResult result = validator.Validate(nomeLista);
@@ -35,7 +36,7 @@ namespace Kattalist.API.Controllers
                 return BadRequest(errorMessage);
             }
 
-            return Created("", _mapper.Map<ListaComprasDTO>(nomeLista));
+            return Created("", _mapper.Map<ListaCompras>(nomeLista));
         }
     }
 }

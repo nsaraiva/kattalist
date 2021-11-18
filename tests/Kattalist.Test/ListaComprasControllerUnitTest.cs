@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using Xunit;
+using Kattalist.Domain.DTOs;
 
 namespace Kattalist.Test
 {
@@ -14,26 +15,26 @@ namespace Kattalist.Test
         public static IEnumerable<object[]> CorrectNameSyntax =>
             new List<object[]>
             {
-                new object[] {new ListaCompras { Name = "Test"}},
-                new object[] {new ListaCompras { Name = "123Test"}},
-                new object[] {new ListaCompras { Name = "Test123"}},
-                new object[] {new ListaCompras { Name = "123"}},                
+                new object[] {new ListaComprasDTO { Name = "Test"}},
+                new object[] {new ListaComprasDTO { Name = "123Test"}},
+                new object[] {new ListaComprasDTO { Name = "Test123"}},
+                new object[] {new ListaComprasDTO { Name = "123"}},                
             };
 
         public static IEnumerable<object[]> IncorrectNameSyntax =>
             new List<object[]>
             {
-                        new object[] {new ListaCompras { Name = ""}},
-                        new object[] {new ListaCompras { Name = " "}},
-                        new object[] {new ListaCompras { Name = " Test"}},
-                        new object[] {new ListaCompras { Name = "Test "}},
-                        new object[] {new ListaCompras { Name = "Tes t"}}
+                        new object[] {new ListaComprasDTO { Name = ""}},
+                        new object[] {new ListaComprasDTO { Name = " "}},
+                        new object[] {new ListaComprasDTO { Name = " Test"}},
+                        new object[] {new ListaComprasDTO { Name = "Test "}},
+                        new object[] {new ListaComprasDTO { Name = "Tes t"}}
             };
 
         [Theory]
         [MemberData(nameof(CorrectNameSyntax))]
         [MemberData(nameof(CorrectNameSyntax))]
-        public void CreatePostShouldRerturnListaComprasIfNameIsInCorrectFormat(ListaCompras nomeLista)
+        public void CreatePostShouldRerturnListaComprasIfNameIsInCorrectFormat(ListaComprasDTO nomeLista)
         {
             //AutoMapper configuration
             var mockMapper = new MapperConfiguration(cfg =>
@@ -46,7 +47,7 @@ namespace Kattalist.Test
             var controller = new ListaComprasController(mapper: mapper);
 
             //Act
-            ActionResult<ListaComprasDTO> listaCompras = controller.Create(nomeLista);
+            ActionResult<ListaCompras> listaCompras = controller.Create(nomeLista);
 
             //Assert
             Assert.NotNull(listaCompras);
@@ -58,12 +59,12 @@ namespace Kattalist.Test
             var values = ((ObjectResult)listaCompras.Result).Value;
             Assert.True(Guid.TryParse(((BaseEntity)values).Id.ToString(), out var newGuid));
             Assert.True(DateTime.TryParse(((BaseEntity)values).DataCriacao.ToString(), out DateTime teste));
-            Assert.Equal(nomeLista.Name, ((ListaComprasDTO)values).Name);
+            Assert.Equal(nomeLista.Name, ((ListaCompras)values).Name);
         }
 
         [Theory]
         [MemberData(nameof(IncorrectNameSyntax))]
-        public void CreatePostShouldRerturnCode400IfNameIsInIncorrectFormat(ListaCompras nomeLista)
+        public void CreatePostShouldRerturnCode400IfNameIsInIncorrectFormat(ListaComprasDTO nomeLista)
         {
             //AutoMapper configuration
             var mockMapper = new MapperConfiguration(cfg =>
@@ -76,7 +77,7 @@ namespace Kattalist.Test
             var controller = new ListaComprasController(mapper: mapper);
 
             //Act
-            ActionResult<ListaComprasDTO> listaCompras = controller.Create(nomeLista);
+            ActionResult<ListaCompras> listaCompras = controller.Create(nomeLista);
 
             //Assert
             Assert.NotNull(listaCompras);

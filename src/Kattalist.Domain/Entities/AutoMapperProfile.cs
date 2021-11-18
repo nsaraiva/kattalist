@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Kattalist.Domain.DTOs;
 using Kattalist.Domain.Entities;
 
 namespace Kattalist.Domain.Entities
@@ -9,12 +10,6 @@ namespace Kattalist.Domain.Entities
         {
             CreateMap<ListaCompras, ListaComprasDTO>()
                 .ReverseMap();
-                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Name));
-            //    .ForMember(dest => dest.DataCriacao, opt => opt.Ignore())
-            //    .ReverseMap();
-            //var config = new MapperConfiguration(cfg =>
-            //        cfg.CreateMap<ListaCompras, ListaComprasDTO>()
-            //    );
         }
     }
 }
