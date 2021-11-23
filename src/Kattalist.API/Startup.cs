@@ -1,4 +1,8 @@
+using Kattalist.Domain.Entities;
+using Kattalist.Domain.Interfaces;
 using Kattalist.Infra.Data.Context;
+using Kattalist.Infra.Data.Repository;
+using Kattalist.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +38,9 @@ namespace Kattalist.API
 
             services.AddDbContext<KattalistDbContext>(Options => Options
             .UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
+            services.AddTransient(typeof(IBaseService<ListaCompras>), typeof(BaseService<ListaCompras>));
+            services.AddTransient(typeof(IBaseRepository<ListaCompras>), typeof(BaseRepository<ListaCompras>));
 
         }
 
