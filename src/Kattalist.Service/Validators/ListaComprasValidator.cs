@@ -12,7 +12,8 @@ namespace Kattalist.Service.Validators
         {
             RuleFor(listaCompras => listaCompras.Name).NotNull();
             RuleFor(ListaCompras => ListaCompras.Name).MinimumLength(1);
-            RuleFor(ListaCompras => ListaCompras.Name).Must(n => !n.Any(x => Char.IsWhiteSpace(x)));
+            RuleFor(ListaCompras => ListaCompras.Name).Must(n => !n.Any(x => Char.IsWhiteSpace(x)))
+                .WithErrorCode("420");
         }
 
         //protected override bool PreValidate(ValidationContext<ListaCompras> instance, ValidationResult result)

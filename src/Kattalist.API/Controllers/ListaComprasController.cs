@@ -27,19 +27,16 @@ namespace Kattalist.API.Controllers
         [ProducesResponseType(201)]
         public ActionResult<ListaCompras> Create([FromBody] ListaComprasDTO nomeLista)
         {
-            var result = _baseListaComprasService.Add<ListaComprasValidator>(_mapper.Map<ListaCompras>(nomeLista));
-
-            //if (!result.IsValid)
-            //{
-            //    string errorMessage = String.Empty;
-            //    foreach (var failure in result.Errors)
-            //    {
-            //        errorMessage += failure.ErrorMessage + "\n";
-            //    }
-            //    return BadRequest(errorMessage);
-            //}
-
-            return Created("", result);
+            try
+            {
+                var result = _baseListaComprasService.Add<ListaComprasValidator>(_mapper.Map<ListaCompras>(nomeLista));
+                return Created("", result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+           
         }
     }
 }
