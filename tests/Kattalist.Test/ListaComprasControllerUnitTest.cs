@@ -1,50 +1,44 @@
-using AutoMapper;
-using Kattalist.Domain.Entities;
+﻿using AutoMapper;
 using Kattalist.API.Controllers;
+using Kattalist.Domain.DTOs;
+using Kattalist.Domain.Entities;
+using Kattalist.Domain.Interfaces;
+using Kattalist.Service.Validators;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using Xunit;
-using Kattalist.Domain.DTOs;
 
 namespace Kattalist.Test
 {
     public class ListaComprasControllerUnitTest
     {
-        public static IEnumerable<object[]> CorrectNameSyntax =>
-            new List<object[]>
-            {
-                new object[] {new ListaComprasDTO { Name = "Test"}},
-                new object[] {new ListaComprasDTO { Name = "123Test"}},
-                new object[] {new ListaComprasDTO { Name = "Test123"}},
-                new object[] {new ListaComprasDTO { Name = "123"}},                
-            };
-
-        public static IEnumerable<object[]> IncorrectNameSyntax =>
-            new List<object[]>
-            {
-                        new object[] {new ListaComprasDTO { Name = ""}},
-                        new object[] {new ListaComprasDTO { Name = " "}},
-                        new object[] {new ListaComprasDTO { Name = " Test"}},
-                        new object[] {new ListaComprasDTO { Name = "Test "}},
-                        new object[] {new ListaComprasDTO { Name = "Tes t"}}
-            };
-
-        [Theory]
-        [MemberData(nameof(CorrectNameSyntax))]
-        [MemberData(nameof(CorrectNameSyntax))]
-        public void CreatePostShouldRerturnListaComprasIfNameIsInCorrectFormat(ListaComprasDTO nomeLista)
+        private IMapper AutoMapperConfiguration()
         {
-            //AutoMapper configuration
             var mockMapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapperProfile());
             });
-            var mapper = mockMapper.CreateMapper();
+
+            return mockMapper.CreateMapper();
+        }
+
+        [Fact]
+        public void CreatePostShouldRerturnListaComprasIfNameIsInCorrectFormat()
+        {
+            var _mapper = AutoMapperConfiguration();
 
             //Arrange
-            var controller = new ListaComprasController(mapper: mapper);
+            ListaComprasDTO nomeLista = new ListaComprasDTO()
+            {
+                Name = "Teste2"
+            };
+
+            var mockServ = new Mock<IBaseService<ListaCompras>>();
+            mockServ.Setup(serv => serv.Add<ListaComprasValidator>(It.IsAny<ListaCompras>())).Returns(_mapper.Map<ListaCompras>(nomeLista));
+
+            var controller = new ListaComprasController(_mapper, mockServ.Object);
 
             //Act
             ActionResult<ListaCompras> listaCompras = controller.Create(nomeLista);
@@ -56,34 +50,35 @@ namespace Kattalist.Test
 
             Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
 
-            var values = ((ObjectResult)listaCompras.Result).Value;
-            Assert.True(Guid.TryParse(((BaseEntity)values).Id.ToString(), out var newGuid));
-            Assert.True(DateTime.TryParse(((BaseEntity)values).DataCriacao.ToString(), out DateTime teste));
-            Assert.Equal(nomeLista.Name, ((ListaCompras)values).Name);
+            //var values = ((ObjectResult)listaCompras.Result).Value;
+            Assert.True(Guid.TryParse(((BaseEntity)response.Value).Id.ToString(), out var newGuid));
+            Assert.True(DateTime.TryParse(((BaseEntity)response.Value).DataCriacao.ToString(), out DateTime teste));
+            Assert.Equal(nomeLista.Name, ((ListaCompras)response.Value).Name);
         }
 
-        [Theory]
-        [MemberData(nameof(IncorrectNameSyntax))]
-        public void CreatePostShouldRerturnCode400IfNameIsInIncorrectFormat(ListaComprasDTO nomeLista)
+        [Fact]
+        public void CreatePostShouldRerturnCode400IfNameIsInwrongFormat()
         {
-            //AutoMapper configuration
-            var mockMapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapperProfile());
-            });
-            var mapper = mockMapper.CreateMapper();
+            var _mapper = AutoMapperConfiguration();
 
-            //Arrange
-            var controller = new ListaComprasController(mapper: mapper);
+            ListaComprasDTO nomeLista = new ListaComprasDTO()
+            {
+                Name = ""
+            };
+
+            var mockServ = new Mock<IBaseService<ListaCompras>>();
+            mockServ.Setup(serv => serv.Add<ListaComprasValidator>(It.IsAny<ListaCompras>())).Returns(_mapper.Map<ListaCompras>(nomeLista));
+
+            var controller = new ListaComprasController(_mapper, mockServ.Object);
 
             //Act
             ActionResult<ListaCompras> listaCompras = controller.Create(nomeLista);
 
             //Assert
-            Assert.NotNull(listaCompras);
-
             var response = listaCompras.Result as ObjectResult;
+
             Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
+
         }
     }
 }

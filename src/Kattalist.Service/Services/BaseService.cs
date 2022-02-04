@@ -45,7 +45,7 @@ namespace Kattalist.Service.Services
             return obj;
         }
 
-        private void Validate(T obj, AbstractValidator<T> validator)
+        public void Validate(T obj, AbstractValidator<T> validator)
         {
             if (obj == null)
                 throw new Exception("ListaCompras cannot be null");

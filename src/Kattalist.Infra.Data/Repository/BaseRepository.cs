@@ -25,8 +25,16 @@ namespace Kattalist.Infra.Data.Repository
 
         public void Insert(T obj)
         {
-            _kattalistDbContext.Set<T>().Add(obj);
-            _kattalistDbContext.SaveChanges();
+            try
+            {
+                _kattalistDbContext.Set<T>().Add(obj);
+                _kattalistDbContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public IList<T> Select()

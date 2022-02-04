@@ -11,6 +11,7 @@ namespace Kattalist.Domain.Interfaces
         IList<T> Get();
         T GetById(int Id);
         T Update<TValidator>(T obj) where TValidator : AbstractValidator<T>;
+        void Validate(T obj, AbstractValidator<T> validator);
 
     }
 }
