@@ -1,6 +1,6 @@
 ﻿namespace Kattalist.Domain.DTOs
 {
-    public class ListaComprasDTO
+    public class GroceryListPostDTO
     {
         public string Name { get; set; }
     }

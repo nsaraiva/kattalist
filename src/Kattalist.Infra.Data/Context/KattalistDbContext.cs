@@ -16,6 +16,15 @@ namespace Kattalist.Infra.Data.Context
 
         }
 
-        public DbSet<ListaCompras> ListaCompras { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            new GroceryListEntityTypeConfiguration().Configure(modelBuilder.Entity<GroceryList>());
+
+            modelBuilder.Entity<GroceryList>()
+                .ToTable("GroceryLists")
+                .Property(p => p.Name).HasColumnType("varchar");
+        }
+
+        public DbSet<GroceryList> GroceryList { get; set; }
     }
 }

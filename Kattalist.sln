@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-API", "1-API", "{7646854F-908F-4B45-9742-8807E4D0405C}"
 EndProject
@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kattalist.Test", "tests\Kat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kattalist.Service", "src\Kattalist.Service\Kattalist.Service.csproj", "{C78D11C2-0AEC-4DF9-9E73-60B4E96DEFB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kattalist.Infra.Data", "src\Kattalist.Infra.Data\Kattalist.Infra.Data.csproj", "{E6848078-EDBE-40B9-BDE3-C78110B05936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kattalist.Infra.Data", "src\Kattalist.Infra.Data\Kattalist.Infra.Data.csproj", "{E6848078-EDBE-40B9-BDE3-C78110B05936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

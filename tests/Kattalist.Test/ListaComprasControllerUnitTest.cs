@@ -9,6 +9,7 @@ using Moq;
 using System;
 using System.Net;
 using Xunit;
+using FluentValidation.TestHelper;
 
 namespace Kattalist.Test
 {
@@ -30,18 +31,22 @@ namespace Kattalist.Test
             var _mapper = AutoMapperConfiguration();
 
             //Arrange
-            ListaComprasDTO nomeLista = new ListaComprasDTO()
+            GroceryListDTO listName = new GroceryListDTO()
             {
                 Name = "Teste2"
             };
 
-            var mockServ = new Mock<IBaseService<ListaCompras>>();
-            mockServ.Setup(serv => serv.Add<ListaComprasValidator>(It.IsAny<ListaCompras>())).Returns(_mapper.Map<ListaCompras>(nomeLista));
+            GroceryListValidator validator = new GroceryListValidator();
 
-            var controller = new ListaComprasController(_mapper, mockServ.Object);
+            validator.Validate(_mapper.Map<GroceryList>(listName));
+
+            var mockServ = new Mock<IBaseService<GroceryList>>();
+            mockServ.Setup(serv => serv.Add<GroceryListValidator>(It.IsAny<GroceryList>())).Returns(_mapper.Map<GroceryList>(listName));
+
+            var controller = new GroceryListController(_mapper, mockServ.Object);
 
             //Act
-            ActionResult<ListaCompras> listaCompras = controller.Create(nomeLista);
+            ActionResult<GroceryList> listaCompras = controller.Create(listName);
 
             //Assert
             Assert.NotNull(listaCompras);
@@ -51,9 +56,9 @@ namespace Kattalist.Test
             Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
 
             //var values = ((ObjectResult)listaCompras.Result).Value;
-            Assert.True(Guid.TryParse(((BaseEntity)response.Value).Id.ToString(), out var newGuid));
-            Assert.True(DateTime.TryParse(((BaseEntity)response.Value).DataCriacao.ToString(), out DateTime teste));
-            Assert.Equal(nomeLista.Name, ((ListaCompras)response.Value).Name);
+            //Assert.True(Guid.TryParse(((BaseEntity)response.Value).Id.ToString(), out var newGuid));
+            Assert.True(DateTime.TryParse(((BaseEntity)response.Value).CreatedDate.ToString(), out DateTime teste));
+            Assert.Equal(listName.Name, ((GroceryList)response.Value).Name);
         }
 
         [Fact]
@@ -61,18 +66,18 @@ namespace Kattalist.Test
         {
             var _mapper = AutoMapperConfiguration();
 
-            ListaComprasDTO nomeLista = new ListaComprasDTO()
+            GroceryListDTO listName = new GroceryListDTO()
             {
                 Name = ""
             };
 
-            var mockServ = new Mock<IBaseService<ListaCompras>>();
-            mockServ.Setup(serv => serv.Add<ListaComprasValidator>(It.IsAny<ListaCompras>())).Returns(_mapper.Map<ListaCompras>(nomeLista));
+            var mockServ = new Mock<IBaseService<GroceryList>>();
+            mockServ.Setup(serv => serv.Add<GroceryListValidator>(It.IsAny<GroceryList>())).Returns(_mapper.Map<GroceryList>(listName));
 
-            var controller = new ListaComprasController(_mapper, mockServ.Object);
+            var controller = new GroceryListController(_mapper, mockServ.Object);
 
             //Act
-            ActionResult<ListaCompras> listaCompras = controller.Create(nomeLista);
+            ActionResult<GroceryList> listaCompras = controller.Create(listName);
 
             //Assert
             var response = listaCompras.Result as ObjectResult;

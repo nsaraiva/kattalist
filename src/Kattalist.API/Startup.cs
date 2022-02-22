@@ -39,8 +39,8 @@ namespace Kattalist.API
             services.AddDbContext<KattalistDbContext>(Options => Options
             .UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
-            services.AddTransient(typeof(IBaseService<ListaCompras>), typeof(BaseService<ListaCompras>));
-            services.AddTransient(typeof(IBaseRepository<ListaCompras>), typeof(BaseRepository<ListaCompras>));
+            services.AddTransient(typeof(IBaseService<GroceryList>), typeof(BaseService<GroceryList>));
+            services.AddTransient(typeof(IBaseRepository<GroceryList>), typeof(BaseRepository<GroceryList>));
 
         }
 

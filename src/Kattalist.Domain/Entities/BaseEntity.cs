@@ -8,13 +8,13 @@ namespace Kattalist.Domain.Entities
 {
     public class BaseEntity
     {
-        public Guid Id { get; set; }
-        public DateTime DataCriacao { get; set; }
+        public int Id { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public BaseEntity()
         {
-            DataCriacao = DateTime.Now;
-            Id = Guid.NewGuid();
+            CreatedDate = DateTime.Now;
+            //Id = Guid.NewGuid();
         }
     }
 }

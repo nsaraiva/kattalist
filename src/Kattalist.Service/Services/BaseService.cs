@@ -48,7 +48,7 @@ namespace Kattalist.Service.Services
         public void Validate(T obj, AbstractValidator<T> validator)
         {
             if (obj == null)
-                throw new Exception("ListaCompras cannot be null");
+                throw new Exception("GroceryList cannot be null");
 
             validator.ValidateAndThrow(obj);
         }

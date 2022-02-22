@@ -8,7 +8,10 @@ namespace Kattalist.Domain.Entities
     {
         public AutoMapperProfile()
         {
-            CreateMap<ListaCompras, ListaComprasDTO>()
+            CreateMap<GroceryList, GroceryListPostDTO>()
+                .ReverseMap();
+
+            CreateMap<GroceryList, GroceryListGetDTO>()
                 .ReverseMap();
         }
     }
