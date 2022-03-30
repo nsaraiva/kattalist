@@ -4,6 +4,7 @@ using Kattalist.Domain.DTOs;
 using Kattalist.Domain.Entities;
 using Kattalist.Domain.Interfaces;
 using Kattalist.Service.Validators;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,31 @@ namespace Kattalist.API.Controllers
             _baseGroceryListService = baseListaComprasService;
         }
 
+        [Route("api/[controller]/list/{listId}")]
+        [HttpGet]
+        public ActionResult<List<GroceryListGetDTO>> GetListById(int listId)
+        {
+            try
+            {
+                var groceryList = _mapper.Map<GroceryListGetDTO>(_baseGroceryListService.GetById(listId));
+
+                if (groceryList == null)
+                {
+                    return NotFound(new { message = "Grocery list not found." });
+                }
+                else
+                {
+                    return Ok(groceryList);
+                }
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+       
+        }
+
         [Route("api/[controller]/lists")]
         [HttpGet]
         public ActionResult<List<GroceryListGetDTO>> GetLists()
@@ -30,7 +56,6 @@ namespace Kattalist.API.Controllers
 
         [Route("api/[controller]/list")]
         [HttpPost]
-        [ProducesResponseType(201)]
         public ActionResult<GroceryList> Create([FromBody] GroceryListPostDTO listName)
         {
             try

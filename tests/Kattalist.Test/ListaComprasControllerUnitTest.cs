@@ -10,6 +10,8 @@ using System;
 using System.Net;
 using Xunit;
 using FluentValidation.TestHelper;
+using System.Collections.Generic;
+
 
 namespace Kattalist.Test
 {
@@ -31,7 +33,7 @@ namespace Kattalist.Test
             var _mapper = AutoMapperConfiguration();
 
             //Arrange
-            GroceryListDTO listName = new GroceryListDTO()
+            GroceryListPostDTO listName = new GroceryListPostDTO()
             {
                 Name = "Teste2"
             };
@@ -62,11 +64,11 @@ namespace Kattalist.Test
         }
 
         [Fact]
-        public void CreatePostShouldRerturnCode400IfNameIsInwrongFormat()
+        public void CreatePostShouldRerturnCode400IfNameIsInWrongFormat()
         {
             var _mapper = AutoMapperConfiguration();
 
-            GroceryListDTO listName = new GroceryListDTO()
+            GroceryListPostDTO listName = new GroceryListPostDTO()
             {
                 Name = ""
             };
@@ -84,6 +86,24 @@ namespace Kattalist.Test
 
             Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
 
+        }
+
+        [Fact]
+        public void GetListsShouldReturnAllGroceryLists()
+        {
+            var _mapper = AutoMapperConfiguration();
+            var mockServ = new Mock<IBaseService<GroceryList>>();
+            mockServ.Setup(serv => serv.Get()).Returns(mockServ.Object.Get());
+
+            var controller = new GroceryListController(_mapper, mockServ.Object);
+
+            //Act
+            ActionResult<List<GroceryListGetDTO>> listaCompras = controller.GetLists();
+
+            //Assert
+            var response = listaCompras.Result as ObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
